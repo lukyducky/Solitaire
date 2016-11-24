@@ -21,18 +21,18 @@ public:
 	Grid(int x, int y){ xSize = x;  ySize = y; }
 
 
-	int xSize(){ return xSize; }
+	int getXSize(){ return xSize; }
 	void setxSize(int x){ xSize = x; }
 
-	int ySize(){ return ySize; }
+	int getYSize(){ return ySize; }
 	void setySize(int y){ ySize = y; }
-
-	grid makeGrid();//makes an empty grid of xSize x ySize
+	/*
+	void makeGrid();//makes an empty grid of xSize x ySize
 
 	void printGrid(); //prints out the grid
 	
 	Card getCard(int x, int y); //gets a card at the spot (x, y)
-	
+	*/
 };
 
 #endif 

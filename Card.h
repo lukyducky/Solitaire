@@ -5,6 +5,10 @@
 
 #include <iostream>
 
+
+enum Face { none, J, Q, K, A };
+enum Suit { diamond, clover, heart, spades };
+
 class Card{
 private:
 	Face face;
@@ -15,36 +19,40 @@ private:
 
 
 public:
-	Card(){ value = 2; S = diamond; isRed = true; isUp = true; face = none; }
+	Card(){ value = 0; S = diamond; isRed = true; isUp = false; face = static_cast<Face>(0); }
 
 	Card(int inV, Suit inSuit, bool inRed, bool inUp, Face inF){value = inV; S = inSuit; isRed = inRed; isUp = inUp; face = inF;}
 
-	~Card(){}
+	//~Card(){}
 
 	//getters and setters
 	
-	Face face() { return face; }
+	Face getFace() { return face; }
 	void setFace(Face inFace){ face = inFace; }
 
-	Suit S(){ return S; }
+	Suit getS(){ return S; }
 	void setS(Suit inS){ S = inS; }
 
-	int value(){ return value; }
+	int getValue(){ return value; }
 	void setVal(int inV){ value = inV; }
 
-	bool isRed(){ return isRed; }
+	bool getIsRed(){ return isRed; }
 	void setIsRed(bool inRed){ isRed = inRed; }
 
-	bool isUp(){ return isUp; }
+	bool getIsUp(){ return isUp; }
 	void setIsUp(bool inUp){ isUp = inUp; }
 	
-	void printCard();
+	//void printCard(){}
+
+	friend std::ostream& operator << (std::ostream&os, const Card& c)
+	{
+		os << "value: " << c.value << ", face: " << c.face << ", suit: " << c.S << ", is red: " << c.isRed << ", isUp: " << c.isUp;
+		return os;
+	}
 	
 };
 
 
-enum Face{none, J, Q, K, A};
-enum Suit{ diamond, clover, heart, spades };
 
 
 

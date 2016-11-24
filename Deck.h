@@ -1,29 +1,38 @@
-#ifndef DECK_H
-#define DECK_H
-
+#pragma once
 
 #include "Card.h"
-#include <stack>
+#include <vector>
 
-//typical deck of cards for deck of cards things.
+using namespace std;
+
+//typical deck of cards for deck of cards things.  is a wrapper around vector.
+//"top" of stack of cards is the "back" of the vector.
 
 class Deck{
 private:
-	std::stack<Card> deck;
-	int size;
-	int maxSize;
+	vector<Card> deck;
 public:
-	Deck(){ size = 0; maxSize = 52; }
-	Deck(int inSize, int inMax){ size = inSize; maxSize = inMax; }
-	~Deck(){}
+	Deck(){}
+	~Deck() {}
 
-	int Size(){ return size; }
-	
-	int maxSize(){ return maxSize; }
-	void setSize(int inMax){ maxSize = inMax; }
+	void randomizeDeck(); //shuffles your deck!
+	void makeDeck(); //makes a typical deck of 52 cards.
+	//void drawCard();
+
+	//operator overload =; only copies up to smallest size if the two are different sizes!!
+	Deck& operator = (const Deck & v);
+
+	friend ostream& operator <<(ostream&os, const Deck& d)
+	{
+		vector<Card>::const_iterator it;
+		for (it = d.deck.begin(); it < d.deck.end(); it++)
+		{
+			os << *it << endl;
+		}
+		return os;
+	}
 
 };
 
 
 
-#endif
