@@ -35,6 +35,30 @@ void Deck::makeDeck()
 	}
 }
 
+
+void Deck::addCard(Card inCard) { //adds card to current deck
+	deck.push_back(inCard);
+}
+
+Card Deck::drawCard() {
+	Card out;
+	if (deck.size() > 0) {
+		out = deck.back();
+		deck.pop_back();
+	}
+	return out;
+}
+
+Deck Deck::drawDeck(int s) { //draw top x cards.
+	Deck outDeck;
+	for (int i = 0; i < s; i++) {
+		outDeck.addCard(this->drawCard());
+	}
+	reverse(outDeck.deck.begin(), outDeck.deck.end());
+	return outDeck;
+}
+
+/*
 Deck& Deck::operator = (const Deck & v)
 {
 	int s = (size < v.size) ? size : v.size; //s has the smaller size
@@ -42,4 +66,4 @@ Deck& Deck::operator = (const Deck & v)
 		this->deck[i] = v.deck[i]; //copying elements over
 	}
 	return *this;
-}
+}*/

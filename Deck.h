@@ -17,10 +17,14 @@ public:
 
 	void randomizeDeck(); //shuffles your deck!
 	void makeDeck(); //makes a typical deck of 52 cards.
-	//void drawCard();
+	void addCard(Card inCard);
+	Card drawCard();
+	Deck drawDeck(int s);
 
 	//operator overload =; only copies up to smallest size if the two are different sizes!!
 	Deck& operator = (const Deck & v);
+
+	//operator overload +
 
 	friend ostream& operator <<(ostream&os, const Deck& d)
 	{
