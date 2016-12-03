@@ -58,12 +58,32 @@ Deck Deck::drawDeck(int s) { //draw top x cards.
 	return outDeck;
 }
 
-/*
-Deck& Deck::operator = (const Deck & v)
+
+
+Deck Deck::operator + (const Deck rhs) {
+	Deck outDeck;
+	//reverse(this->deck.begin(), this->deck.end());
+	//reverse(rhs.deck.begin(), rhs.deck.end());
+	vector<Card>::reverse_iterator rit = this->deck.rbegin();
+	for (; rit != this->deck.rend(); ++rit)
+	{
+		outDeck.deck.push_back(*rit);
+	}
+	rit = rhs.deck.rbegin();
+	for (; rit != deck.rend(); ++rit)
+	{
+		outDeck.deck.push_back(*rit);
+	}
+
+
+}
+
+
+Deck& Deck::operator = (Deck & v)
 {
-	int s = (size < v.size) ? size : v.size; //s has the smaller size
+	int s = (deck.size() < v.deck.size()) ? deck.size() : v.deck.size(); //s has the smaller size
 	for (int i = 0; i < s; i++) {
 		this->deck[i] = v.deck[i]; //copying elements over
 	}
 	return *this;
-}*/
+}
