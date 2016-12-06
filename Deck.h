@@ -22,9 +22,9 @@ public:
 	Deck drawDeck(int s);
 
 	//operator overload =; only copies up to smallest size if the two are different sizes!!
-	Deck& operator = (const Deck & v);
+	//Deck& operator = (const Deck & v);
 
-	//operator overload +
+	Deck operator + (const Deck v);
 
 	friend ostream& operator <<(ostream&os, const Deck& d)
 	{

@@ -29,7 +29,7 @@ void Deck::makeDeck()
 			}
 
 			inCard.setS(static_cast<Suit>(s));
-			inCard.setIsRed((s % 2 != 0) ? false : true);
+			inCard.setIsRed((s % 2 != 0) ? false : true); //sets isRed based on # of suit (since it's enums)
 			deck.push_back(inCard);
 		}
 	}
@@ -55,6 +55,18 @@ Deck Deck::drawDeck(int s) { //draw top x cards.
 		outDeck.addCard(this->drawCard());
 	}
 	reverse(outDeck.deck.begin(), outDeck.deck.end());
+	return outDeck;
+}
+
+Deck Deck::operator + (const Deck v)
+{
+	Deck outDeck;
+	for (int i = 0; i < this->deck.size(); i++) {
+		outDeck.deck.push_back(this->deck[i]);
+	}
+	for (int i = 0; i < v.deck.size(); i++) {
+		outDeck.deck.push_back(v.deck[i]);
+	}
 	return outDeck;
 }
 
