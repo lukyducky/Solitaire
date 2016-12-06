@@ -21,10 +21,10 @@ public:
 	Card drawCard();
 	Deck drawDeck(int s);
 
-	Deck& operator = (Deck & v); //only copies up to smallest size if the two are different sizes!!
+	//Deck& operator = (Deck & v); //only copies up to smallest size if the two are different sizes!!
 	//Deck& operator = (const Deck & v);
 
-	Deck operator + (const Deck rhs);
+	Deck operator + (const Deck v);
 
 	friend ostream& operator <<(ostream&os, const Deck& d)
 	{
