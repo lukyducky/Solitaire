@@ -20,8 +20,8 @@ public:
 	void addCard(Card inCard); //add a card to the "top" of the deck
 	Card drawCard();
 	Deck drawDeck(int s);
+	Card getTopCard();
 
-	//Deck& operator = (Deck & v); //only copies up to smallest size if the two are different sizes!!
 	//Deck& operator = (const Deck & v);
 
 	Deck operator + (const Deck v);

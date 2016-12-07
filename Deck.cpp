@@ -49,6 +49,10 @@ Card Deck::drawCard() {
 	return out;
 }
 
+Card Deck::getTopCard() {
+	return deck.back();
+}
+
 Deck Deck::drawDeck(int s) { //draw top x cards.
 	Deck outDeck;
 	for (int i = 0; i < s; i++) {

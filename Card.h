@@ -16,7 +16,7 @@ private:
 	Suit S;
 	bool isRed; //if not red, it's black
 	bool isUp;
-
+	bool isTop;
 
 public:
 	Card(){ value = 0; S = diamond; isRed = true; isUp = false; face = static_cast<Face>(0); }
@@ -41,8 +41,14 @@ public:
 
 	bool getIsUp(){ return isUp; }
 	void setIsUp(bool inUp){ isUp = inUp; }
+
+	bool getIsTop() { return isTop; }
+	void setisTop(bool inTop) { isTop = inTop; }
 	
-	//void printCard(){}
+	
+	void printCard();
+	char getEnumFace(Face inFace);
+	char getSuit(Suit inS);
 
 	friend std::ostream& operator << (std::ostream&os, const Card& c)
 	{
