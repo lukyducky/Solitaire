@@ -3,22 +3,25 @@
 using namespace std;
 
 void Card::printCard() {
-	if (isUp ){
-		cout << " _____" << endl;
+	cout << " _____" << endl;
+	if (isUp) {
 		cout << "|    " << getEnumFace(face) << getSuit(S) << "|" << endl;
-		if (isTop) {
-			for (int i = 0; i < 2; i++) {
-				cout << "|     |" << endl;
-			}
-			cout << "|_____|" << endl;
+	}
+	else if (!isUp) {
+		cout << "|     |" << endl;
+	}
+	if (isTop) {
+		for (int i = 0; i < 2; i++) {
+			cout << "|     |" << endl;
 		}
-  }
+		cout << "|_____|" << endl;
+	}
+  
 }
 
-char Card::getEnumFace(Face inFace) {
+char Card::getEnumFace(Face inFace) const {
 	char out;
 	switch (inFace) {
-	
 	case Face::A:
 		out = 'A';
 		break;
@@ -31,14 +34,17 @@ char Card::getEnumFace(Face inFace) {
 	case Face::Q:
 		out = 'Q';
 		break;
+	case Face::none:
+		out = static_cast<char>(value);
+		break;
 	default:
-		out = value;
+		out = '0';
 		break;
 	}
 	return out;
 }
 
-char Card::getSuit(Suit inS) {
+char Card::getSuit(Suit inS) const  {
 	char out;
 	switch (inS) {
 	case Suit::clover:
@@ -50,8 +56,11 @@ char Card::getSuit(Suit inS) {
 	case Suit::diamond:
 		out = 'D';
 		break;
-	default:
+	case Suit::spades:
 		out = 'S';
+		break;
+	default:
+		out = '0';
 		break;
 	}
 	return out;

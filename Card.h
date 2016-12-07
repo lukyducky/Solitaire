@@ -27,32 +27,32 @@ public:
 
 	//getters and setters
 	
-	Face getFace() { return face; }
+	Face getFace() const  { return face; }
 	void setFace(Face inFace){ face = inFace; }
 
-	Suit getS(){ return S; }
+	Suit getS() const  { return S; }
 	void setS(Suit inS){ S = inS; }
 
-	int getValue(){ return value; }
+	int getValue() const  { return value; }
 	void setVal(int inV){ value = inV; }
 
-	bool getIsRed(){ return isRed; }
+	bool getIsRed() const  { return isRed; }
 	void setIsRed(bool inRed){ isRed = inRed; }
 
-	bool getIsUp(){ return isUp; }
+	bool getIsUp() const  { return isUp; }
 	void setIsUp(bool inUp){ isUp = inUp; }
 
-	bool getIsTop() { return isTop; }
+	bool getIsTop() const { return isTop; }
 	void setisTop(bool inTop) { isTop = inTop; }
 	
 	
 	void printCard();
-	char getEnumFace(Face inFace);
-	char getSuit(Suit inS);
+	char getEnumFace(Face inFace) const;
+	char getSuit(Suit inS) const;
 
 	friend std::ostream& operator << (std::ostream&os, const Card& c)
 	{
-		os << "value: " << c.value << ", face: " << c.face << ", suit: " << c.S << ", is red: " << c.isRed << ", isUp: " << c.isUp;
+		os << "value: " << c.value << ", face: " << c.getEnumFace(c.getFace()) << ", suit: " << c.getSuit(c.getS()) << ", is red: " << c.isRed << ", isUp: " << c.isUp;
 		return os;
 	}
 	
