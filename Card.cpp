@@ -2,10 +2,16 @@
 #include <iostream>
 using namespace std;
 
-void Card::printCard() {
+
+void Card::printCard() const { 
 	cout << " _____" << endl;
 	if (isUp) {
-		cout << "|    " << getEnumFace(face) << getSuit(S) << "|" << endl;
+		cout << "|   ";
+		if (value != 10) { 
+			cout << getEnumFace(face);
+		}
+		else { cout << 10; }//10 is a special case becuase it's more than 1 digit.
+		cout << getSuit(S) << "|" << endl;
 	}
 	else if (!isUp) {
 		cout << "|     |" << endl;
@@ -16,11 +22,11 @@ void Card::printCard() {
 		}
 		cout << "|_____|" << endl;
 	}
-  
 }
 
+
 char Card::getEnumFace(Face inFace) const {
-	char out;
+	unsigned char out;
 	switch (inFace) {
 	case Face::A:
 		out = 'A';
@@ -34,8 +40,8 @@ char Card::getEnumFace(Face inFace) const {
 	case Face::Q:
 		out = 'Q';
 		break;
-	case Face::none:
-		out = static_cast<char>(value);
+	case Face::none: //this is a terrible terrible thing!!!
+		out = '0' + value;  //this is a very interesting thing.
 		break;
 	default:
 		out = '0';

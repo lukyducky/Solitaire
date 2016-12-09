@@ -7,8 +7,6 @@
 using namespace std;
 #include "Deck.h"
 
-
-
 //will have a mxn grid to display cards, either face up or not.
 
 class Board{
@@ -20,7 +18,6 @@ private:
 	Deck myDeck;
 	Deck trashDeck;
 	Deck hand; 
-
 
 public:
 	Board(){}

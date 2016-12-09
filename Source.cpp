@@ -10,6 +10,7 @@ void main(){
 	Card myCard = aDeck.getTopCard();
 	myCard.setIsUp(true);
 	
+	aDeck.drawDeck(6).printDeck();
 
 	myCard.printCard();
 	system("pause");

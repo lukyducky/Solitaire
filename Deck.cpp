@@ -5,6 +5,7 @@
 void Deck::randomizeDeck()
 {
 	random_shuffle(deck.begin(), deck.end());
+	setisTop();
 }
 
 void Deck::makeDeck() 
@@ -33,23 +34,38 @@ void Deck::makeDeck()
 			deck.push_back(inCard);
 		}
 	}
+	deck.back().setisTop(true);
 }
-
 
 void Deck::addCard(Card inCard) { //adds card to current deck
+	/*if (deck.size() != 0){
+		deck.back().setisTop(false);
+	}
 	deck.push_back(inCard);
+	deck.back().setisTop(true);*/
+	deck.push_back(inCard);
+	setisTop();
 }
 
-Card Deck::drawCard() {
+void Deck::setisTop() {
+	vector<Card>::iterator it;
+	for (it = deck.begin(); it < deck.end(); it++) {
+		it->setisTop(false);
+	}
+	deck.back().setisTop(true);
+}
+
+Card Deck::drawCard() { //returns "default" card if empty deck.
 	Card out;
 	if (deck.size() > 0) {
 		out = deck.back();
 		deck.pop_back();
 	}
+	setisTop();
 	return out;
 }
 
-Card Deck::getTopCard() {
+Card Deck::getTopCard() { //shows you card; doesnt remove from deck.  "peek"
 	return deck.back();
 }
 
@@ -59,10 +75,10 @@ Deck Deck::drawDeck(int s) { //draw top x cards.
 		outDeck.addCard(this->drawCard());
 	}
 	reverse(outDeck.deck.begin(), outDeck.deck.end());
+	setisTop();
+	outDeck.setisTop();
 	return outDeck;
 }
-
-
 
 Deck Deck::operator + (const Deck v)
 {
@@ -70,18 +86,28 @@ Deck Deck::operator + (const Deck v)
 	for (int i = 0; i < this->deck.size(); i++) {
 		outDeck.deck.push_back(this->deck[i]);
 	}
+	//this->deck.back().setisTop(true);
 	for (int i = 0; i < v.deck.size(); i++) {
 		outDeck.deck.push_back(v.deck[i]);
 	}
+	outDeck.setisTop();
 	return outDeck;
 }
 
-/*
-Deck& Deck::operator = (Deck & v)
+
+Deck& Deck::operator = (const Deck & v)
 {
 	int s = (deck.size() < v.deck.size()) ? deck.size() : v.deck.size(); //s has the smaller size
 	for (int i = 0; i < s; i++) {
 		this->deck[i] = v.deck[i]; //copying elements over
 	}
+	this->setisTop();
 	return *this;
-}*/
+}
+
+void Deck::printDeck() const {
+	vector<Card>::const_iterator it;
+	for (it = deck.begin(); it < deck.end(); it++){
+		it->printCard();
+	}
+}

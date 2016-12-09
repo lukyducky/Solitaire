@@ -19,12 +19,10 @@ private:
 	bool isTop;
 
 public:
-	Card(){ value = 0; S = diamond; isRed = true; isUp = false; face = static_cast<Face>(0); }
-
+	Card() { value = 0; S = diamond; isRed = true; isUp = false; face = static_cast<Face>(0); isTop = false; }
 	Card(int inV, Suit inSuit, bool inRed, bool inUp, Face inF){value = inV; S = inSuit; isRed = inRed; isUp = inUp; face = inF;}
 
 	//~Card(){}
-
 	//getters and setters
 	
 	Face getFace() const  { return face; }
@@ -45,28 +43,21 @@ public:
 	bool getIsTop() const { return isTop; }
 	void setisTop(bool inTop) { isTop = inTop; }
 	
-	
-	void printCard();
+	void printCard() const;
 	char getEnumFace(Face inFace) const;
 	char getSuit(Suit inS) const;
 
-	friend std::ostream& operator << (std::ostream&os, const Card& c)
-	{
+	friend std::ostream& operator << (std::ostream&os, const Card& c){ //10 is going to be blank
 		os << "value: " << c.value << ", face: " << c.getEnumFace(c.getFace()) << ", suit: " << c.getSuit(c.getS()) << ", is red: " << c.isRed << ", isUp: " << c.isUp;
 		return os;
 	}
 	
 	bool operator ==(Card& rhs) {
 		bool equal = false;
-		if ((this->isRed == rhs.isRed) || (this->face == rhs.face) || (this->S == rhs.S) || (this->value == rhs.value) )
-		{
+		if ((this->isRed == rhs.isRed) || (this->face == rhs.face) || (this->S == rhs.S) || (this->value == rhs.value) ){
 			equal = true;
 		}
 	}
 };
-
-
-
-
 
 #endif

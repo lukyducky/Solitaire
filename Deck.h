@@ -18,11 +18,14 @@ public:
 	void randomizeDeck(); //shuffles your deck!
 	void makeDeck(); //makes a typical deck of 52 cards.
 	void addCard(Card inCard); //add a card to the "top" of the deck
+	void setisTop();
+
+
 	Card drawCard();
 	Deck drawDeck(int s);
 	Card getTopCard();
-
-	//Deck& operator = (const Deck & v);
+	
+	Deck& operator = (const Deck & v);
 
 	Deck operator + (const Deck v);
 
@@ -36,6 +39,7 @@ public:
 		return os;
 	}
 
+	void printDeck() const;
 };
 
 
