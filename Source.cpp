@@ -6,7 +6,7 @@ using namespace std;
 void main(){
 	Board myGame;
 	myGame.dealCards();
-	myGame.printTableau();
+	myGame.printGameBoard();
 	
 
 	

@@ -1,7 +1,6 @@
 #include"Deck.h"
 #include <algorithm>
 
-
 void Deck::randomizeDeck()
 {
 	random_shuffle(deck.begin(), deck.end());
@@ -110,10 +109,10 @@ Deck& Deck::operator = (const Deck & v)
 	return *this;
 }
 
-void Deck::printDeck(string s) const {
+void Deck::printDeck() const {
 	vector<Card>::const_iterator it;
 	for (it = deck.begin(); it < deck.end(); it++){
-		it->printCard(s);
+		it->printCard();
 	}
 	cout << endl;
 }

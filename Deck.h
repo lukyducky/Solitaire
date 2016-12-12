@@ -42,7 +42,7 @@ public:
 		return os;
 	}
 
-	void printDeck(string s) const;
+	void printDeck() const;
 };
 
 

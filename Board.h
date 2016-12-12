@@ -16,15 +16,20 @@ private:
 	vector<Deck> foundation; //should be size 4;
 	Deck myDeck;
 	Deck trashDeck;
-	Deck hand; 
+	Deck hand; //only size 3.
 
 public:
-	Board(){}
+	Board():foundation(4){}
 	~Board() {}
 	
 	void dealCards(); //sets up game grid
 	void printGameBoard(); //prints out cards
+
+	//printing out individual stuff
 	void printTableau();
+	void printFoundation();
+	void printHand(); //prints out deck and hand and trash deck.
+
 
 };
 

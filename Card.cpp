@@ -1,27 +1,34 @@
 #include "Card.h"
 #include <iostream>
 
-void Card::printCard(string s) const { 
-	cout << " _____" << s;
+void Card::printCard() const { 
+	cout << " _____" << endl;
 	if (isUp) {
 		cout << "|   ";
 		if (value != 10) { 
 			cout << getEnumFace(face);
 		}
 		else { cout << 10; }//10 is a special case becuase it's more than 1 digit.
-		cout << getSuit(S) << "|" << s;
+		cout << getSuit(S) << "|" << endl;
 	}
 	else if (!isUp) {
-		cout << "|     |" << s;
+		cout << "|     |" << endl;
 	}
 	if (isTop) {
 		for (int i = 0; i < 2; i++) {
-			cout << "|     |" << s;
+			cout << "|     |" << endl;
 		}
-		cout << "|_____|" << s;
+		cout << "|_____|" << endl;
 	}
 }
 
+void Card::printCardInfo() {
+		if (value != 10) {
+			cout <<"|   "<< getEnumFace(face);
+		}
+		else { cout << "|  "<<10; }//10 is a special case becuase it's more than 1 digit.
+		cout << getSuit(S) << "|";
+}
 
 char Card::getEnumFace(Face inFace) const {
 	unsigned char out;
