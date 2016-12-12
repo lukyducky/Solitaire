@@ -2,6 +2,7 @@
 
 #include "Card.h"
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -20,10 +21,12 @@ public:
 	void addCard(Card inCard); //add a card to the "top" of the deck
 	void setisTop();
 
+	int getSize() const { return deck.size(); }
 
 	Card drawCard();
 	Deck drawDeck(int s);
-	Card getTopCard();
+	Card& getTopCard();
+	Card& getCard(int s);
 	
 	Deck& operator = (const Deck & v);
 
@@ -39,7 +42,7 @@ public:
 		return os;
 	}
 
-	void printDeck() const;
+	void printDeck(string s) const;
 };
 
 

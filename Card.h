@@ -4,7 +4,9 @@
 //class of Card
 
 #include <iostream>
+#include <string>
 
+using namespace std;
 
 enum Face { none, J, Q, K, A };
 enum Suit { diamond, clover, heart, spades };
@@ -43,12 +45,13 @@ public:
 	bool getIsTop() const { return isTop; }
 	void setisTop(bool inTop) { isTop = inTop; }
 	
-	void printCard() const;
+	void printCard(string s) const;
 	char getEnumFace(Face inFace) const;
 	char getSuit(Suit inS) const;
 
-	friend std::ostream& operator << (std::ostream&os, const Card& c){ //10 is going to be blank
-		os << "value: " << c.value << ", face: " << c.getEnumFace(c.getFace()) << ", suit: " << c.getSuit(c.getS()) << ", is red: " << c.isRed << ", isUp: " << c.isUp;
+	friend std::ostream& operator << (std::ostream&os, const Card& c){
+		os << "value: " << c.value << ", face" << c.getEnumFace(c.getFace()) << ", suit: " << c.getSuit(c.getS()) 
+			<< ", is red: " << c.isRed << ", isUp: " << c.isUp << ", isTop: " << c.isTop;
 		return os;
 	}
 	

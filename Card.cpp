@@ -1,26 +1,24 @@
 #include "Card.h"
 #include <iostream>
-using namespace std;
 
-
-void Card::printCard() const { 
-	cout << " _____" << endl;
+void Card::printCard(string s) const { 
+	cout << " _____" << s;
 	if (isUp) {
 		cout << "|   ";
 		if (value != 10) { 
 			cout << getEnumFace(face);
 		}
 		else { cout << 10; }//10 is a special case becuase it's more than 1 digit.
-		cout << getSuit(S) << "|" << endl;
+		cout << getSuit(S) << "|" << s;
 	}
 	else if (!isUp) {
-		cout << "|     |" << endl;
+		cout << "|     |" << s;
 	}
 	if (isTop) {
 		for (int i = 0; i < 2; i++) {
-			cout << "|     |" << endl;
+			cout << "|     |" << s;
 		}
-		cout << "|_____|" << endl;
+		cout << "|_____|" << s;
 	}
 }
 

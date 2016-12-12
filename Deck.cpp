@@ -49,33 +49,38 @@ void Deck::addCard(Card inCard) { //adds card to current deck
 
 void Deck::setisTop() {
 	vector<Card>::iterator it;
-	for (it = deck.begin(); it < deck.end(); it++) {
+	for (it = deck.begin(); it != deck.end(); it++) {
 		it->setisTop(false);
-	}
-	deck.back().setisTop(true);
+	}//make sure all of them are false
+	deck.back().setisTop(true); //then make the top one true
 }
 
 Card Deck::drawCard() { //returns "default" card if empty deck.
 	Card out;
 	if (deck.size() > 0) {
-		out = deck.back();
-		deck.pop_back();
+		out = deck.back(); // get the card
+		deck.pop_back(); //remove the card
 	}
-	setisTop();
+	setisTop(); //reset the top cards.
 	return out;
 }
 
-Card Deck::getTopCard() { //shows you card; doesnt remove from deck.  "peek"
+Card& Deck::getTopCard() { //shows you card; doesnt remove from deck.  "peek"
 	return deck.back();
 }
 
+Card& Deck::getCard(int s) {
+	return deck[s];
+}
+
+
 Deck Deck::drawDeck(int s) { //draw top x cards.
 	Deck outDeck;
-	for (int i = 0; i < s; i++) {
+	for (int i = 0; i < s; i++) { //pushing back the new card
 		outDeck.addCard(this->drawCard());
 	}
-	reverse(outDeck.deck.begin(), outDeck.deck.end());
-	setisTop();
+	reverse(outDeck.deck.begin(), outDeck.deck.end()); //reversing so it's in the right order
+	//setisTop();
 	outDeck.setisTop();
 	return outDeck;
 }
@@ -105,9 +110,10 @@ Deck& Deck::operator = (const Deck & v)
 	return *this;
 }
 
-void Deck::printDeck() const {
+void Deck::printDeck(string s) const {
 	vector<Card>::const_iterator it;
 	for (it = deck.begin(); it < deck.end(); it++){
-		it->printCard();
+		it->printCard(s);
 	}
+	cout << endl;
 }

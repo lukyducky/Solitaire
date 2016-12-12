@@ -12,7 +12,6 @@ using namespace std;
 class Board{
 	
 private:
-	
 	vector<Deck> tableau; //should be size 7;
 	vector<Deck> foundation; //should be size 4;
 	Deck myDeck;
