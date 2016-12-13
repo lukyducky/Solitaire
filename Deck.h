@@ -27,10 +27,12 @@ public:
 	Deck drawDeck(int s);
 	Card& getTopCard();
 	Card& getCard(int s);
-	
-	Deck& operator = (const Deck & v);
+	void setDeckisUp(bool in);
+	bool isEmpty() { return (getSize() != 0) ? false : true; }
 
+	Deck& operator = (const Deck & v);
 	Deck operator + (const Deck v);
+	Deck& operator += (const Deck & v);
 
 	friend ostream& operator <<(ostream&os, const Deck& d)
 	{

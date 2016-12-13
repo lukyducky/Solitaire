@@ -30,7 +30,16 @@ public:
 	void printFoundation();
 	void printHand(); //prints out deck and hand and trash deck.
 
+	Deck& getTabCol(int i);
+	
+	Deck& getHand() { return hand; }
+	Deck& getDeck() { return myDeck; }
+	Deck& getTrash() { return trashDeck; }
+	Deck& getFoundationCol(int i) { return foundation[i]; }
 
+	void drawFromDeck(int s); //draw s cards from deck into hand; moves the prev hand cards to the trash.
+
+	bool isDeckEmpty() { return (myDeck.getSize() != 0) ? false : true; }
 };
 
 #endif 

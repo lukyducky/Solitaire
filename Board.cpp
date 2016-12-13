@@ -9,8 +9,6 @@ void Board::dealCards(){ //sets up game grid
 		tableau.push_back(myDeck.drawDeck(i));
 		tableau[i - 1].getTopCard().setIsUp(true);
 	}
-	
-
 }
 void Board::printGameBoard(){
 	printHand();
@@ -28,28 +26,24 @@ void Board::printTableau() {
 		cout << y + 1;
 		for (int h = 0; h < 2; h++) {
 			for (int x = 0; x < tableau.size(); x++) {
-				if (y < tableau[x].getSize()) //if it exists, print it out?
-				{
-
-					if (h == 0) {
+				if (y < tableau[x].getSize()){ //if it exists, print it out?
+					if (h == 0) { //print the top of card
 						cout << " _____\t";
 					}
-					else {
+					else { //printing card info
 						if (tableau[x].getCard(y).getIsUp()) {
-
-							if (tableau[x].getCard(y).getValue() != 10) {
+							if (tableau[x].getCard(y).getValue() != 10) { //getting the #/face
 								cout << "|   " << tableau[x].getCard(y).getEnumFace(tableau[x].getCard(y).getFace());
 							}
 							else { //10 is a special case becuase it's more than 1 digit.
 								cout << "|  " << 10;
 							}
 							cout << tableau[x].getCard(y).getSuit(tableau[x].getCard(y).getS()) << "|\t";
-						}//printing the #s
-						else {
-							cout << " |     |\t";
+						}
+						else { //if not up: it's blank
+							cout << "|     |\t";
 						}
 					}
-
 				}
 				else
 				{
@@ -98,3 +92,16 @@ void Board::printHand() { //prints out deck and hand and trash deck.
 	hand.printDeck();
 
 }
+
+Deck & Board::getTabCol(int i) {
+	return tableau[i];
+}
+
+void Board::drawFromDeck(int s) {
+	if (!hand.isEmpty()) {
+		trashDeck += hand.drawDeck(s);
+	}
+	hand += myDeck.drawDeck(s);
+}
+
+

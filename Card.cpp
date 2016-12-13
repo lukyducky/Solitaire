@@ -45,8 +45,8 @@ char Card::getEnumFace(Face inFace) const {
 	case Face::Q:
 		out = 'Q';
 		break;
-	case Face::none: //this is a terrible terrible thing!!!
-		out = '0' + value;  //this is a very interesting thing.
+	case Face::none: 
+		out = '0' + value;  //this is a very interesting thing, because of ascii values and all that stuff
 		break;
 	default:
 		out = '0';

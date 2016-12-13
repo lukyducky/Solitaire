@@ -4,7 +4,7 @@
 void Deck::randomizeDeck()
 {
 	random_shuffle(deck.begin(), deck.end());
-	setisTop();
+	//setisTop();
 }
 
 void Deck::makeDeck() 
@@ -33,17 +33,11 @@ void Deck::makeDeck()
 			deck.push_back(inCard);
 		}
 	}
-	deck.back().setisTop(true);
+	//deck.back().setisTop(true);
 }
 
 void Deck::addCard(Card inCard) { //adds card to current deck
-	/*if (deck.size() != 0){
-		deck.back().setisTop(false);
-	}
 	deck.push_back(inCard);
-	deck.back().setisTop(true);*/
-	deck.push_back(inCard);
-	setisTop();
 }
 
 void Deck::setisTop() {
@@ -60,7 +54,7 @@ Card Deck::drawCard() { //returns "default" card if empty deck.
 		out = deck.back(); // get the card
 		deck.pop_back(); //remove the card
 	}
-	setisTop(); //reset the top cards.
+	//setisTop(); //reset the top cards.
 	return out;
 }
 
@@ -72,6 +66,12 @@ Card& Deck::getCard(int s) {
 	return deck[s];
 }
 
+void Deck::setDeckisUp(bool in) {
+	vector<Card>::iterator it;
+	for (it = deck.begin(); it < deck.end(); it++) {
+		it->setIsUp(in);
+	}
+}
 
 Deck Deck::drawDeck(int s) { //draw top x cards.
 	Deck outDeck;
@@ -79,8 +79,6 @@ Deck Deck::drawDeck(int s) { //draw top x cards.
 		outDeck.addCard(this->drawCard());
 	}
 	reverse(outDeck.deck.begin(), outDeck.deck.end()); //reversing so it's in the right order
-	//setisTop();
-	outDeck.setisTop();
 	return outDeck;
 }
 
@@ -90,14 +88,16 @@ Deck Deck::operator + (const Deck v)
 	for (int i = 0; i < this->deck.size(); i++) {
 		outDeck.deck.push_back(this->deck[i]);
 	}
-	//this->deck.back().setisTop(true);
 	for (int i = 0; i < v.deck.size(); i++) {
 		outDeck.deck.push_back(v.deck[i]);
 	}
-	outDeck.setisTop();
 	return outDeck;
 }
 
+Deck& Deck::operator += (const Deck & v) {
+	*this = *this + v;
+	return *this;
+}
 
 Deck& Deck::operator = (const Deck & v)
 {
@@ -105,7 +105,6 @@ Deck& Deck::operator = (const Deck & v)
 	for (int i = 0; i < s; i++) {
 		this->deck[i] = v.deck[i]; //copying elements over
 	}
-	this->setisTop();
 	return *this;
 }
 

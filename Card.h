@@ -21,7 +21,7 @@ private:
 	bool isTop;
 
 public:
-	Card() { value = 0; S = diamond; isRed = true; isUp = true; face = static_cast<Face>(0); isTop = false; } //NEED TO CHANGE LATER: isUP SHOULD BE FALSE
+	Card() { value = 0; S = diamond; isRed = true; isUp = false; face = static_cast<Face>(0); isTop = false; } 
 	Card(int inV, Suit inSuit, bool inRed, bool inUp, Face inF){value = inV; S = inSuit; isRed = inRed; isUp = inUp; face = inF;}
 
 	//~Card(){}
