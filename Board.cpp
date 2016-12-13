@@ -59,7 +59,7 @@ void Board::printTableau() {
 void Board::printFoundation() {
 	cout << "Foundation:" << endl;
 	for (int i = 0; i < foundation.size(); i++) {
-		cout << "   "<< i << " \t";
+		cout << "   "<< i + 1<< " \t";
 	}
 	cout << endl;
 	for (int i = 0; i < foundation.size(); i++) {
@@ -88,9 +88,9 @@ void Board::printFoundation() {
 	cout << endl<< endl;
 }
 void Board::printHand() { //prints out deck and hand and trash deck.
-	cout << "Cards left in deck: " << myDeck.getSize();
+	cout << "Cards left in deck: " << myDeck.getSize() << endl;
+	hand.setDeckisUp(true);
 	hand.printDeck();
-
 }
 
 Deck & Board::getTabCol(int i) {

@@ -35,7 +35,10 @@ public:
 	Deck& getHand() { return hand; }
 	Deck& getDeck() { return myDeck; }
 	Deck& getTrash() { return trashDeck; }
+	vector<Deck>& getTableau() { return tableau; }
+	vector<Deck>& getFoundation() { return foundation; }
 	Deck& getFoundationCol(int i) { return foundation[i]; }
+	
 
 	void drawFromDeck(int s); //draw s cards from deck into hand; moves the prev hand cards to the trash.
 
