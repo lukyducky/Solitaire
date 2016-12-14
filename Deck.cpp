@@ -99,7 +99,6 @@ Deck& Deck::operator += (const Deck & v) {
 	return *this;
 }
 
-/*
 Deck& Deck::operator = (const Deck & v)
 {
 	int s = (deck.size() < v.deck.size()) ? deck.size() : v.deck.size(); //s has the smaller size
@@ -108,7 +107,7 @@ Deck& Deck::operator = (const Deck & v)
 	}
 	return *this;
 }
-*/
+
 void Deck::printDeck() const {
 	vector<Card>::const_iterator it;
 	for (it = deck.begin(); it < deck.end(); it++){

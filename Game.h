@@ -16,11 +16,8 @@ public:
 
 	void playGame();
 
-	void moveTurn();
-	void moveToFoundation(int x, int y, int moveTo);
-
 	bool checkIfWon();
-	bool checkIfAnyMovable(Card inCard);
+	//bool checkIfLost();
 
 	template <class T>
 	T getUserInput(string message);
@@ -31,14 +28,9 @@ public:
 	bool isInputValid(int size, string message); //to be used inside a while loop
 	//void isInputValid(string message);
 
-	Deck& moveDeck(int x, int y);
+	void moveTurn();
 	void moveCard(int x, int y, int moveTo); //card x-y coordinates; and # of column to move to.
-
-	bool isMoveValid(int cardX, int cardY, int moveTo);
-	bool isFoundationMoveValid(int x, int y, int moveTo);
-
-	Card& getTabCard(int cardX, int cardY);
-
+	bool isMoveValid(int cardX, int cardY, int moveTo); //also in a while loop?
 	void drawFromDeck(int s);
 
 	void cont();

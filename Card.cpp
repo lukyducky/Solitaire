@@ -4,10 +4,11 @@
 void Card::printCard() const { 
 	cout << " _____" << endl;
 	if (isUp) {
+		cout << "|   ";
 		if (value != 10) { 
-			cout << "|   " << getEnumFace(face);
+			cout << getEnumFace(face);
 		}
-		else { cout << "|  " << 10; }//10 is a special case becuase it's more than 1 digit.
+		else { cout << 10; }//10 is a special case becuase it's more than 1 digit.
 		cout << getSuit(S) << "|" << endl;
 	}
 	else if (!isUp) {
