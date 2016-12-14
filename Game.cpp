@@ -46,7 +46,7 @@ int Game::checkUserInput(int d, string prompt) {
 	int x;
 	while (!b) {
 		b = true;
-		x = getUserInput<int>("please enter a number: ");
+		x = getUserInput<int>(prompt);
 		if (x == 0 || x > d) {
 			cout << "improper input; please enter a number between 1 and " << d << endl;
 			b = false;
