@@ -66,7 +66,7 @@ Card& Deck::getCard(int s) {
 	return deck[s];
 }
 
-void Deck::setDeckisUp(bool in) {
+void Deck::setDeckisUp(bool in) { //sets entire deck's isUP 
 	vector<Card>::iterator it;
 	for (it = deck.begin(); it < deck.end(); it++) {
 		it->setIsUp(in);
@@ -111,8 +111,11 @@ Deck& Deck::operator = (const Deck & v)
 */
 void Deck::printDeck() const {
 	vector<Card>::const_iterator it;
+	int i = 1;
 	for (it = deck.begin(); it < deck.end(); it++){
+		cout << i ;
 		it->printCard();
+		i++;
 	}
 	cout << endl;
 }
