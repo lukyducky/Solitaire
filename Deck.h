@@ -30,6 +30,11 @@ public:
 	void setDeckisUp(bool in);
 	bool isEmpty() { return (getSize() != 0) ? false : true; }
 
+
+	int findCard(Card& inCard);
+	bool Deck::isCardinDeck(Card& inCard);
+
+
 	//Deck& operator = (const Deck & v);
 	Deck operator + (const Deck v);
 	Deck& operator += (const Deck & v);

@@ -82,6 +82,15 @@ Deck Deck::drawDeck(int s) { //draw top x cards.
 	return outDeck;
 }
 
+
+int Deck::findCard(Card& inCard) {
+	return distance(deck.begin(), find(deck.begin(), deck.end(), inCard));
+}
+
+bool Deck::isCardinDeck(Card& inCard) {
+	return (find(deck.begin(), deck.end(), inCard) == deck.end()) ? true : false;
+}
+
 Deck Deck::operator + (const Deck v)
 {
 	Deck outDeck;

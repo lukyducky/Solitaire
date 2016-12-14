@@ -41,6 +41,10 @@ public:
 	bool isFoundationMoveValid(Card& inCard, int moveTo);
 	bool isMoveValid(Card& inCard, int moveTo);
 
+	int getCardX(Card& inCard); //get column...
+	int getCardY(Card& inCard); //get row of card
+
+
 	//getting cards from tableau or hand
 	Card& getTabCard(int cardX, int cardY);
 	Card& getHandCard(int CardY);

@@ -56,11 +56,8 @@ public:
 		return os;
 	}
 	
-	bool operator ==(Card& rhs) {
-		bool equal = false;
-		if ((this->isRed == rhs.isRed) || (this->face == rhs.face) || (this->S == rhs.S) || (this->value == rhs.value) ){
-			equal = true;
-		}
+	bool operator ==(Card rhs) const {
+		return((this->getIsRed() == rhs.isRed) || (this->getFace() == rhs.face) || (this->getS() == rhs.S) || (this->getValue() == rhs.value)) ? true: false;
 	}
 };
 

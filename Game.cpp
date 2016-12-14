@@ -29,11 +29,32 @@ void Game::playGame() {
 void Game::moveTurn() {
 	bool a = false, b = false;
 	int x=0, y=0, z = 0;
+	//why this doesn't work: using references but references can't change what they're pointing to; and they also can't be made null & initialized later.
 	while (!a) {
 		a = true;
+		/*
+		bool b = false;
+		while (!b) {
+			b = true;
+			char d = getUserInput<char>("would you like to move a card from the tableau(T), or from your hand(H)? ");
+			cout << "Choose a card to move: " << endl;
+			if (d == 't' || d == 'T') {
+				x = checkUserInput(7, "Enter column number: ");
+				cout << endl;
+				y = checkUserInput(myBoard.getTabCol(x - 1).getSize(), "Enter row number: ");
+				Card& movedCard = getTabCard(x, y);
+			}
+			else if (d == 'H' || d == 'h') {
+				Card& movedCard = myBoard.getHand().getTopCard();
+			}
+			else {
+				b = false;
+				cout << "improper input, please try again" << endl;
+			}
+		}*/
 		Card& movedCard = inputMovedCard();
 		cout << endl;
-		if (!movedCard.getIsUp()) {
+		if (!movedCard.getIsUp()) { //because of references...
 			a = false;
 			cout << "That card is not movable.  Please try again" << endl;
 		}
@@ -56,7 +77,7 @@ void Game::moveTurn() {
 							break;
 						}
 						else {
-							moveToFoundation(x, y, z); //can you draw deck using card?
+							moveToFoundation(x, y, z);
 						}
 					}
 					else if (d == 't' || d == 'T') {
@@ -66,7 +87,7 @@ void Game::moveTurn() {
 							break;
 						}
 						else {
-							//moveCard(x, y, z);  //can you draw deck using card?
+							moveCard(x, y, z); 
 						}
 					}
 					else {
@@ -105,12 +126,34 @@ Card& Game::inputMovedCard() {
 
 //std colon find: give it iterator til the end of the rows
 /*
-for Iint 0 ->n)
+for int 0 ->n)
 	itr->find()
-		if iterator continue
+		if iterator = end continue
 		if card stop searching.
 
 */
+
+int Game::getCardX(Card& inCard) {
+	int x;
+	for (int i = 0; i < myBoard.getTableau().size(); i++) {
+		if (myBoard.getTableau()[i].isCardinDeck(inCard)){ //if card is in deck
+			x = i;
+			break; //let's not keep looping if we don't have to.
+		}
+	}
+	return x;
+}
+int Game::getCardY(Card& inCard) {
+	int y;
+	for (int i = 0; i < myBoard.getTableau().size(); i++) {
+		if (myBoard.getTableau()[i].isCardinDeck(inCard)) {
+			y = myBoard.getTableau()[i].findCard(inCard);
+			break;
+		}
+	}
+	return y;
+}
+
 
 void Game::moveToFoundation(int x, int y, int moveTo) {
 	Deck& movedDeck = moveDeck(x, y); //drawing the top # of cards
