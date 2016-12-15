@@ -51,14 +51,21 @@ public:
 	char getSuit(Suit inS) const;
 
 	friend std::ostream& operator << (std::ostream&os, const Card& c){
-		os << "value: " << c.value << ", face" << c.getEnumFace(c.getFace()) << ", suit: " << c.getSuit(c.getS()) 
-			<< ", is red: " << c.isRed << ", isUp: " << c.isUp << ", isTop: " << c.isTop;
+		os << "value: " << c.value << ", face" << c.getEnumFace(c.getFace()) << ", suit: " << c.getSuit(c.getS())
+			<< ", is red: " << c.isRed << ", isUp: " << c.isUp;// ", isTop: " << c.isTop;
 		return os;
 	}
 	
-	bool operator ==(Card rhs) const {
-		return((this->getIsRed() == rhs.isRed) || (this->getFace() == rhs.face) || (this->getS() == rhs.S) || (this->getValue() == rhs.value)) ? true: false;
+	friend bool operator ==(Card lCard, Card rhs) {
+		return((lCard.getValue() == rhs.getValue()) && (lCard.getS() == rhs.getS())); //you only need suit and value
 	}
+
+	friend bool operator != (Card lCard, Card inCard) {
+		return ((lCard.getS() != inCard.getS()) || (lCard.getValue() && inCard.getValue()));
+	}
+
+
+	
 };
 
 #endif

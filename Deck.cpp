@@ -83,12 +83,14 @@ Deck Deck::drawDeck(int s) { //draw top x cards.
 }
 
 
-int Deck::findCard(Card& inCard) {
+int Deck::findCard(Card& inCard) { //should be getting the index
 	return distance(deck.begin(), find(deck.begin(), deck.end(), inCard));
 }
 
-bool Deck::isCardinDeck(Card& inCard) {
-	return (find(deck.begin(), deck.end(), inCard) == deck.end()) ? true : false;
+bool Deck::isCardinDeck(Card inCard) {
+	bool out;
+	out =  ((find(this->deck.begin(), this->deck.end(), inCard) != this->deck.end()));
+	return out;
 }
 
 Deck Deck::operator + (const Deck v)
