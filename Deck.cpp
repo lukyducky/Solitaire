@@ -15,16 +15,13 @@ void Deck::makeDeck()
 		{
 			Card inCard;
 			inCard.setVal(n);
-			if (n == 1)
-			{
+			if (n == 1){
 				inCard.setFace(static_cast<Face>(4)); //face is A
 			}
-			else if (n <= 10)
-			{
+			else if (n <= 10){
 				inCard.setFace(static_cast<Face>(0));
 			}
-			else if (n > 10)
-			{
+			else if (n > 10){
 				inCard.setFace(static_cast<Face>(n-10));
 			}
 
@@ -110,23 +107,10 @@ Deck& Deck::operator += (const Deck & v) {
 	return *this;
 }
 
-/*
-Deck& Deck::operator = (const Deck & v)
-{
-	int s = (deck.size() < v.deck.size()) ? deck.size() : v.deck.size(); //s has the smaller size
-	for (int i = 0; i < s; i++) {
-		this->deck[i] = v.deck[i]; //copying elements over
-	}
-	return *this;
-}
-*/
 void Deck::printDeck() const {
 	vector<Card>::const_iterator it;
-	int i = 1;
 	for (it = deck.begin(); it < deck.end(); it++){
-		cout << i ;
 		it->printCard();
-		i++;
 	}
 	cout << endl;
 }

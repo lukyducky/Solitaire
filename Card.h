@@ -63,9 +63,6 @@ public:
 	friend bool operator != (Card lCard, Card inCard) {
 		return ((lCard.getS() != inCard.getS()) || (lCard.getValue() && inCard.getValue()));
 	}
-
-
-	
 };
 
 #endif

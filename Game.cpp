@@ -1,29 +1,32 @@
 #include "Game.h"
 
 void Game::playGame() {
-	myBoard.dealCards();
-	bool looper;
-	while (!isGameWon) {
-		myBoard.printGameBoard();
-		looper = false;
-		while (!looper) { 
-			looper = true;
-			char d = getUserInput<char>("Would you like to move a card(C), or draw from the deck? (D)");
-			if (d == 'C' || d == 'c') {
-				moveTurn();
-			}
-			else if (d == 'd' || d == 'D') {
-				drawFromDeck(difficulty);
-			}
-			else {
-				cout << "improper input.  please enter C or D" << endl;
-				looper = false;
-			}
-		}
+	while (isPlaying) {
 
-		isGameWon = checkIfWon();
+		myBoard.dealCards();
+		bool looper;
+		while (!isGameWon) {
+			myBoard.printGameBoard();
+			looper = false;
+			while (!looper) {
+				looper = true;
+				char d = getUserInput<char>("Would you like to move a card(C), or draw from the deck? (D)");
+				if (d == 'C' || d == 'c') {
+					moveTurn();
+				}
+				else if (d == 'd' || d == 'D') {
+					drawFromDeck(difficulty);
+				}
+				else {
+					cout << "improper input.  please enter C or D" << endl;
+					looper = false;
+				}
+			}
+			isGameWon = checkIfWon();
+		}
+		cout << "Congrats!  You won!" << endl;
+		cont();
 	}
-	cout << "Congrats!  You won! \n Do you want to play again?  yes or no" << endl;
 }
 
 void Game::moveTurn() {
@@ -32,29 +35,13 @@ void Game::moveTurn() {
 	//why this doesn't work: using references but references can't change what they're pointing to; and they also can't be made null & initialized later.
 	while (!a) {
 		a = true;
-		/*
-		bool b = false;
-		while (!b) {
-			b = true;
-			char d = getUserInput<char>("would you like to move a card from the tableau(T), or from your hand(H)? ");
-			cout << "Choose a card to move: " << endl;
-			if (d == 't' || d == 'T') {
-				x = checkUserInput(7, "Enter column number: ");
-				cout << endl;
-				y = checkUserInput(myBoard.getTabCol(x - 1).getSize(), "Enter row number: ");
-				Card& movedCard = getTabCard(x, y);
-			}
-			else if (d == 'H' || d == 'h') {
-				Card& movedCard = myBoard.getHand().getTopCard();
-			}
-			else {
-				b = false;
-				cout << "improper input, please try again" << endl;
-			}
-		}*/
 		Card& movedCard = inputMovedCard();
+		if (isCardinTab(movedCard)) {
+			x = getCardX(movedCard);
+			y = getCardY(movedCard);
+		}
 		cout << endl;
-		if (!movedCard.getIsUp()) { //because of references...
+		if (!movedCard.getIsUp()) {
 			a = false;
 			cout << "That card is not movable.  Please try again" << endl;
 		}
@@ -65,18 +52,21 @@ void Game::moveTurn() {
 			}
 			else {
 				cout << "Chose where to move that card: " << endl;
-
 				bool looper = false;
 				while (!looper) {
 					looper = true;
-					char d = getUserInput<char>("Would you like to move to the foundation (F) or the tableau? (T)");
+					char d = getUserInput<char>("Would you like to move to the foundation (F) or the tableau? (T)\n");
 					if (d == 'f' || d == 'F') {
 						z = checkUserInput(4, "enter foundation number ");
 						if (!isFoundationMoveValid(movedCard, z)) {
 							cout << "you cannot move that card there.  please try again" << endl;
 							break;
 						}
-						else {
+						else if(y + 1 != myBoard.getTabCol(y).getSize()) { //if it is not the top card
+							cout << "you can only move 1 card at a time to the foundation.  Please try again. " << endl;
+							break;
+						}
+						else { //move is value
 							moveToFoundation(x, y, z);
 						}
 					}
@@ -87,11 +77,16 @@ void Game::moveTurn() {
 							break;
 						}
 						else {
-							moveCard(x, y, z); 
+							if (isCardinTab(movedCard)){
+								moveCard(x, y, z);
+							}
+							else {
+								moveFromHand(z);
+							}
 						}
 					}
 					else {
-						cout << "improper input.  please enter C or D" << endl;
+						cout << "improper input.  please enter  F or T" << endl;
 						looper = false;
 					}
 				}
@@ -105,9 +100,9 @@ Card& Game::inputMovedCard() {
 	bool b = false;
 	while (!b) {
 		b = true;
-		char d = getUserInput<char>("would you like to move a card from the tableau(T), or from your hand(H)? ");
-		cout << "Choose a card to move: " << endl;
+		char d = getUserInput<char>("would you like to move a card from the tableau(T), or from your hand(H)? \n");
 		if (d == 't' || d == 'T') {
+			cout << "Choose a card to move: " << endl;
 			x = checkUserInput(7, "Enter column number: ");
 			cout << endl;
 			y = checkUserInput(myBoard.getTabCol(x - 1).getSize(), "Enter row number: ");
@@ -115,7 +110,15 @@ Card& Game::inputMovedCard() {
 		}
 		else if (d == 'H' || d == 'h') {
 			//x = checkUserInput(difficulty, "Enter card number: ");
-			return myBoard.getHand().getTopCard();
+			if (myBoard.getHand().isEmpty())
+			{
+				b = false;
+				cout << "the hand is empty. please draw cards first" << endl;
+			}
+			else {
+				return myBoard.getHand().getTopCard();
+			}
+		
 		}
 		else {
 			b = false;
@@ -124,40 +127,39 @@ Card& Game::inputMovedCard() {
 	}
 }
 
-//std colon find: give it iterator til the end of the rows
-/*
-for int 0 ->n)
-	itr->find()
-		if iterator = end continue
-		if card stop searching.
-
-*/
+bool Game::isCardinTab(Card& inCard) {
+	bool out = false;
+	for (int i = 0; i < myBoard.getTableau().size(); i++) {
+		if (myBoard.getTableau()[i].isCardinDeck(inCard)) {
+			out = true;
+		}
+	}
+	return out;
+}
 
 int Game::getCardX(Card& inCard) {
-	int x;
+	int x = 0;
 	for (int i = 0; i < myBoard.getTableau().size(); i++) {
 		if (myBoard.getTableau()[i].isCardinDeck(inCard)){ //if card is in deck
-			x = i;
+			x = i; //get that number!!!
 			break; //let's not keep looping if we don't have to.
 		}
 	}
 	return x;
 }
 int Game::getCardY(Card& inCard) {
-	int y;
+	int y = 0;
 	for (int i = 0; i < myBoard.getTableau().size(); i++) {
-		if (myBoard.getTableau()[i].isCardinDeck(inCard)) {
-			y = myBoard.getTableau()[i].findCard(inCard);
-			break;
+		if (myBoard.getTableau()[i].isCardinDeck(inCard)) { //if the card is in the deck
+			y = myBoard.getTableau()[i].findCard(inCard);  //get its index
+			break; //and let's stop looping once we're done.
 		}
 	}
 	return y;
 }
 
-
 void Game::moveToFoundation(int x, int y, int moveTo) {
-	Deck& movedDeck = moveDeck(x, y); //drawing the top # of cards
-	myBoard.getFoundationCol(moveTo - 1) += movedDeck;
+	myBoard.getFoundationCol(moveTo - 1).addCard(myBoard.getTabCol(x).getTopCard());
 }
 
 bool Game::checkIfWon() {
@@ -233,13 +235,27 @@ bool Game::isInputValid(int size, string message) { //to be used inside a while 
 	else { return false; }
 }
 
-Deck& Game::moveDeck(int x, int y) { //getting a deck of cards:
-	return myBoard.getTabCol(x - 1).drawDeck(myBoard.getTabCol(x - 1).getSize() - (y - 1));
+void Game::moveFromHand(int moveTo) {
+	//Deck& movedCard = drawHandCard();
+	myBoard.getTabCol(moveTo - 1).addCard(myBoard.getHand().drawCard());
+}
+
+Deck& Game::getMovedDeck(int x, int y) { //getting a deck of cards:
+	return myBoard.getTabCol(x).drawDeck(myBoard.getTabCol(x).getSize() - (y));
 }
 void Game::moveCard(int x, int y, int moveTo) { //card x-y coordinates; and # of column to move to.
-	Deck& movedDeck = moveDeck(x, y); //drawing the top # of cards
-	myBoard.getTabCol(moveTo - 1) += movedDeck; //move the cards
-	myBoard.getTabCol(x - 1).getTopCard().setIsUp(true);
+	if (myBoard.getTabCol(x).getSize() == y+1) { //if it's the top card...
+		myBoard.getTabCol(moveTo - 1).addCard(myBoard.getTabCol(x).drawCard());
+	}
+	else { //if it's a deck to move
+		Deck& movedDeck = getMovedDeck(x, y); //drawing the top # of cards
+		myBoard.getTabCol(moveTo - 1) += movedDeck; //move the cards
+	}
+
+	if (myBoard.getTabCol(x).getSize() > 0) { //if there are still cards left in the first column, set its top card to be up.
+		myBoard.getTabCol(x).getTopCard().setIsUp(true);
+	}
+	
 }
 
 bool Game::isMoveValid(int cardX, int cardY, int moveTo) { //also in a while loop?
@@ -254,24 +270,25 @@ bool Game::isMoveValid(Card& inCard, int moveTo) {
 }
 
 bool Game::isFoundationMoveValid(Card& inCard, int moveTo) {
-
-	if (myBoard.getFoundationCol(moveTo).getSize() == 0) {
-		if (inCard.getValue() == 1) {
-			return true;
+	bool out = false;
+	if (myBoard.getFoundationCol(moveTo).getSize() == 0) { //if it's empty...
+		if (inCard.getValue() == 1) { //only let an ace.
+			out = true;
 		}
 	}
-	else {
+	else { //if it's not empty, check its suit and value.
 		Card& targetCard = myBoard.getFoundationCol(moveTo - 1).getTopCard();
-		return (inCard.getS() == targetCard.getS() && inCard.getValue() == targetCard.getValue() - 1) ? true : false;
+		out = (inCard.getS() == targetCard.getS() && inCard.getValue() == targetCard.getValue() - 1) ? true : false;
 	}
+	return out;
 }
 
 Card& Game::getTabCard(int cardX, int cardY) {
 	return myBoard.getTabCol(cardX - 1).getCard(cardY - 1);
 }
 
-Card& Game::getHandCard(int CardY) {
-	return myBoard.getHand().getCard(CardY);
+Deck& Game::drawHandCard() {
+	return myBoard.getHand().drawDeck(1);
 }
 
 void Game::drawFromDeck(int s) {

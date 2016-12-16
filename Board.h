@@ -39,7 +39,6 @@ public:
 	vector<Deck>& getFoundation() { return foundation; }
 	Deck& getFoundationCol(int i) { return foundation[i]; }
 	
-
 	void drawFromDeck(int s); //draw s cards from deck into hand; moves the prev hand cards to the "trash".
 
 	bool isDeckEmpty() { return (myDeck.getSize() != 0) ? false : true; }
