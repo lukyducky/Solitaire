@@ -30,6 +30,11 @@ public:
 	void setDeckisUp(bool in);
 	bool isEmpty() { return (getSize() != 0) ? false : true; }
 
+	int findCard(Card& inCard);
+	bool Deck::isCardinDeck(Card inCard);
+
+	void reverseDeck();
+
 	//Deck& operator = (const Deck & v);
 	Deck operator + (const Deck v);
 	Deck& operator += (const Deck & v);
@@ -37,9 +42,11 @@ public:
 	friend ostream& operator <<(ostream&os, const Deck& d)
 	{
 		vector<Card>::const_iterator it;
+		int i = 1;
 		for (it = d.deck.begin(); it < d.deck.end(); it++)
 		{
-			os << *it << endl;
+			os <<i << ": "<< *it << endl;
+			i++;
 		}
 		return os;
 	}

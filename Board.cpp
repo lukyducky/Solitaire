@@ -13,6 +13,7 @@ void Board::dealCards(){ //sets up game grid
 void Board::printGameBoard(){
 	printHand();
 	printFoundation();
+	cout << "Tableau: " << endl;
 	printTableau();
 }
 

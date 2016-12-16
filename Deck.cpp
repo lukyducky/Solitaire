@@ -15,16 +15,13 @@ void Deck::makeDeck()
 		{
 			Card inCard;
 			inCard.setVal(n);
-			if (n == 1)
-			{
+			if (n == 1){
 				inCard.setFace(static_cast<Face>(4)); //face is A
 			}
-			else if (n <= 10)
-			{
+			else if (n <= 10){
 				inCard.setFace(static_cast<Face>(0));
 			}
-			else if (n > 10)
-			{
+			else if (n > 10){
 				inCard.setFace(static_cast<Face>(n-10));
 			}
 
@@ -66,7 +63,7 @@ Card& Deck::getCard(int s) {
 	return deck[s];
 }
 
-void Deck::setDeckisUp(bool in) {
+void Deck::setDeckisUp(bool in) { //sets entire deck's isUP 
 	vector<Card>::iterator it;
 	for (it = deck.begin(); it < deck.end(); it++) {
 		it->setIsUp(in);
@@ -80,6 +77,17 @@ Deck Deck::drawDeck(int s) { //draw top x cards.
 	}
 	reverse(outDeck.deck.begin(), outDeck.deck.end()); //reversing so it's in the right order
 	return outDeck;
+}
+
+
+int Deck::findCard(Card& inCard) { //should be getting the index
+	return distance(deck.begin(), find(deck.begin(), deck.end(), inCard));
+}
+
+bool Deck::isCardinDeck(Card inCard) {
+	bool out;
+	out =  ((find(this->deck.begin(), this->deck.end(), inCard) != this->deck.end()));
+	return out;
 }
 
 Deck Deck::operator + (const Deck v)
@@ -99,16 +107,10 @@ Deck& Deck::operator += (const Deck & v) {
 	return *this;
 }
 
-/*
-Deck& Deck::operator = (const Deck & v)
-{
-	int s = (deck.size() < v.deck.size()) ? deck.size() : v.deck.size(); //s has the smaller size
-	for (int i = 0; i < s; i++) {
-		this->deck[i] = v.deck[i]; //copying elements over
-	}
-	return *this;
+void Deck::reverseDeck() {
+	reverse(deck.begin(), deck.end());
 }
-*/
+
 void Deck::printDeck() const {
 	vector<Card>::const_iterator it;
 	for (it = deck.begin(); it < deck.end(); it++){
