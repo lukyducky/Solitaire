@@ -107,6 +107,10 @@ Deck& Deck::operator += (const Deck & v) {
 	return *this;
 }
 
+void Deck::reverseDeck() {
+	reverse(deck.begin(), deck.end());
+}
+
 void Deck::printDeck() const {
 	vector<Card>::const_iterator it;
 	for (it = deck.begin(); it < deck.end(); it++){

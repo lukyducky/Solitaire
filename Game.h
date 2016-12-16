@@ -34,6 +34,7 @@ public:
 	Deck& getMovedDeck(int x, int y);
 	void moveCard(int x, int y, int moveTo); //card x-y coordinates; and # of column to move to.
 	void moveFromHand(int moveTo);
+	void moveFromHandtoFound(int moveTo);
 
 	//checkers
 	bool checkIfWon();

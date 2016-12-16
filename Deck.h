@@ -33,6 +33,8 @@ public:
 	int findCard(Card& inCard);
 	bool Deck::isCardinDeck(Card inCard);
 
+	void reverseDeck();
+
 	//Deck& operator = (const Deck & v);
 	Deck operator + (const Deck v);
 	Deck& operator += (const Deck & v);
